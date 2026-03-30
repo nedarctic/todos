@@ -1,9 +1,5 @@
 let todos: { id: number; title: string }[] = []
 
-export function resetTodos() {
-  todos = []
-}
-
 export async function getTodos() {
     return todos
 }
