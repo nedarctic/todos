@@ -1,7 +1,12 @@
-import { describe, it, expect } from 'vitest';
-import { getTodos, postTodo } from '../lib/api';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { getTodos, postTodo, resetTodos } from '../lib/api';
 
 describe('Todos API', () => {
+    beforeEach(() => {
+        resetTodos()
+    })
+
+
     it('should return an empty array when there are no todos', async () => {
         const todos = await getTodos();
         expect(todos).toEqual([]);
