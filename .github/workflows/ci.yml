@@ -11,20 +11,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout the repo
       - uses: actions/checkout@v3
 
+      # Use Node.js 24
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 24
 
+      # Install dependencies with clean install
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
+      # Debug: show file tree to catch casing issues
+      - name: Show project files
+        run: ls -R
+
+      # Run tests with verbose logging and always fail on test failure
       - name: Run tests
-        run: npx vitest run --reporter=verbose
+        run: npx vitest run --reporter=verbose --run
 
+      # Upload coverage if it exists
       - name: Upload coverage
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
